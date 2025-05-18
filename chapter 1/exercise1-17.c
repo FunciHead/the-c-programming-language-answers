@@ -1,7 +1,6 @@
-/*Exercise 1-16. Revise the main routine of the longest-line program so it will correctly print
-the length of arbitrary long input lines, and as much as possible of the text.
+/*
+Exercise 1-17. Write a program to print all input lines that are longer than 80 characters.
 */
-
 #include <stdio.h>
 #define MAXLINE 1000
 
@@ -23,12 +22,18 @@ int main(){
             copy(longest, line);
         }
         if (max > 0) {
-            //this -1 is for the null character 
-            printf("line length: %d\n", len-1);
-            printf("%s", longest);
-            max = 0;
-            clear(longest, MAXLINE);
-        }
+            if( len > 80) {
+                //this -1 is for the null character 
+                printf("line length: %d\n", len-1);
+                printf("%s", longest);
+                max = 0;
+                clear(longest, MAXLINE);
+           }else {
+                printf("Line smallerr than 80 characters\n");
+                max = 0;
+                clear(longest, MAXLINE);
+           }
+    }
     }
     return 0;
 }
