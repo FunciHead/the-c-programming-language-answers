@@ -1,11 +1,11 @@
-/*
-Exercise 1-18. Write a program to remove trailing blanks and tabs from each line of input,
-and to delete entirely blank lines.
-*/
+/*Exercise 1-19. Write a function reverse(s) that reverses the character string s. Use it to
+write a program that reverses its input a line at a time.*/
+
 #include <stdio.h>
 #define MAXLINE 1000
 
 int mygetline(char line[], int maxline);
+void reverse(char line[], int maxline);
 void copy(char to[], char from[]);
 void clear(char line[], int size);
 
@@ -23,31 +23,38 @@ int main(){
         }
         if (max > 0) {
             //this -1 is for the null character 
+            reverse(longest, len);
+            printf("reversed string: ");
             printf("%s\n", longest);
             max = 0;
             clear(longest, MAXLINE);
-           
         }
     }
     return 0;
 }
 
+void reverse(char line[], int maxline){
+    char copy;
+    int j = maxline-1;
+    for(int i = 0; i < maxline/2; i++){
+        copy = line[i];
+        line[i] = line[j];
+        line[j] = copy;
+        j--;
+    }
+}
+
 int mygetline(char line[],int maxline){
     int c, i;
-    for (i=0; i < maxline-1 && (c=getchar())!=EOF && c!='\n'; ++i){
+    for (i=0; i < maxline-1 && (c=getchar())!=EOF && c!='\n'; ++i)
         line[i] = c;
-        if (c == ' ' || c == '\t'){
-            i--;
-        }
         if (c == '\n') {
             line[i] = c;
             ++i;
         }
-    }
-    line[i] = '\0';
+        line[i] = '\0';
     return i;
 }
-
 
 void copy(char to[], char from[]){
     int i;
@@ -59,5 +66,6 @@ void copy(char to[], char from[]){
 void clear(char line[], int size){
     for (int i = 0; i < size; i++){
         line[i] = 0;
-    }   
+    }
+    
 }
